@@ -38,3 +38,10 @@ class CreateOrListComment(ListCreateAPIView):
     def perform_create(self, serializer):
         blog = Blog.objects.get(id = self.kwargs['pk'])
         serializer.save(blog = blog, posted_by = self.request.user)
+
+class UpdateOrDeleteComment(RetrieveUpdateDestroyAPIView):
+    serializer_class = CommentSerializer
+    queryset = Comment.objects.all()
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = (IsAuthenticatedOrReadOnly, SelfPermission,)
+    
