@@ -32,7 +32,6 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'email', 'name', 'password', 'password_2', 'created', 'modified', 'token')
         extra_kwargs = {
-            'email': {'write_only': True},
             'password' : {'write_only' : True}
         }
 
