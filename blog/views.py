@@ -5,6 +5,7 @@ from .models import Blog, Comment
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.pagination import PageNumberPagination
+from .pagination import CustomPagination
 from .permissions import SelfPermission
 from rest_framework.response import Response
 from rest_framework import status
@@ -14,7 +15,7 @@ class CreateOrListBlog(ListCreateAPIView):
     queryset = Blog.objects.all()
     authentication_classes = (JWTAuthentication,)
     permission_classes = (IsAuthenticatedOrReadOnly,)
-    pagination_class = PageNumberPagination
+    pagination_class = CustomPagination
 
     def perform_create(self, serializer):
         serializer.save(posted_by = self.request.user)
